@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔥 إعلان حفلتك مع Top Voice - Event Announcement</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --gold: #FFD700;
+            --gold-dark: #FFA500;
+            --purple: #8A2BE2;
+            --purple-dark: #4B0082;
+            --blue: #1E90FF;
+            --red: #FF4444;
+            --green: #00FF7F;
+            --black: #0A0A0A;
+            --dark: #1A1A2E;
+            --light: #F8F9FA;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--black) 0%, var(--dark) 50%, #0F3460 100%);
+            font-family: 'Tajawal', sans-serif;
+            color: var(--light);
+            min-height: 100vh;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* طبقات الخلفية المتحركة */
+        .bg-layers {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .layer {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.1;
+            filter: blur(40px);
+        }
+
+        .layer-1 {
+            width: 300px;
+            height: 300px;
+            background: var(--gold);
+            top: 10%;
+            right: 10%;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        .layer-2 {
+            width: 400px;
+            height: 400px;
+            background: var(--purple);
+            bottom: 10%;
+            left: 10%;
+            animation: float 18s infinite ease-in-out reverse;
+        }
+
+        .layer-3 {
+            width: 200px;
+            height: 200px;
+            background: var(--blue);
+            top: 50%;
+            left: 20%;
+            animation: float 12s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(180deg); }
+        }
+
+        /* الحاوية الرئيسية */
+        .main-container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+
+        /* الهيدر */
+        .main-header {
+            text-align: center;
+            padding: 25px 0 30px;
+            position: relative;
+        }
+
+        .top-voice-badge {
+            display: inline-block;
+            background: linear-gradient(45deg, var(--gold), var(--gold-dark));
+            color: var(--black);
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: 900;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            animation: badgeGlow 2s infinite alternate;
+        }
+
+        @keyframes badgeGlow {
+            0% { box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3); }
+            100% { box-shadow: 0 10px 40px rgba(255, 215, 0, 0.6), 0 0 60px rgba(255, 215, 0, 0.3); }
+        }
+
+        .main-title {
+            font-size: 2.2rem;
+            font-weight: 900;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, var(--gold), var(--red), var(--blue));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            line-height: 1.2;
+        }
+
+        .main-subtitle {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 15px;
+            padding: 0 10px;
+        }
+
+        /* بطاقة الإعلان */
+        .announcement-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            padding: 30px;
+            margin-bottom: 25px;
+            border: 2px solid rgba(255, 215, 0, 0.2);
+            box-shadow: 
+                0 15px 35px rgba(0, 0, 0, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .announcement-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 215, 0, 0.4);
+        }
+
+        .card-title {
+            color: var(--gold);
+            font-size: 1.6rem;
+            margin-bottom: 25px;
+            text-align: center;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .card-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 35%;
+            left: 35%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            border-radius: 3px;
+        }
+
+        /* حقول الإدخال */
+        .input-section {
+            margin-bottom: 25px;
+        }
+
+        .input-label {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+            color: var(--gold);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .input-icon {
+            color: var(--gold);
+            font-size: 1.2rem;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 18px 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            border-radius: 15px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 500;
+            font-family: 'Tajawal', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        select.input-field {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23FFD700'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: left 20px center;
+            background-size: 20px;
+            padding-left: 50px;
+        }
+
+        textarea.input-field {
+            min-height: 100px;
+            resize: vertical;
+            line-height: 1.6;
+        }
+
+        /* قسم الشروط */
+        .requirements-section {
+            background: linear-gradient(135deg, rgba(138, 43, 226, 0.1), rgba(75, 0, 130, 0.2));
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border: 2px solid rgba(138, 43, 226, 0.3);
+        }
+
+        .requirements-title {
+            color: var(--purple);
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .requirement-item {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            border-right: 4px solid var(--purple);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .requirement-item:hover {
+            transform: translateX(-5px);
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .requirement-icon {
+            color: var(--purple);
+            font-size: 1.3rem;
+            min-width: 30px;
+        }
+
+        /* قسم الجوائز */
+        .rewards-section {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 165, 0, 0.2));
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .rewards-title {
+            color: var(--gold);
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .reward-item {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            border-right: 4px solid var(--gold);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .reward-item:hover {
+            transform: translateX(-5px);
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .reward-icon {
+            color: var(--gold);
+            font-size: 1.3rem;
+            min-width: 30px;
+        }
+
+        /* زر الإرسال */
+        .submit-container {
+            margin: 40px 0 30px;
+            text-align: center;
+        }
+
+        .submit-btn {
+            background: linear-gradient(45deg, var(--red), #FF6B6B);
+            color: white;
+            border: none;
+            padding: 25px 50px;
+            font-size: 1.4rem;
+            font-weight: 900;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            min-width: 300px;
+            box-shadow: 
+                0 15px 30px rgba(255, 68, 68, 0.3),
+                0 0 50px rgba(255, 68, 68, 0.1);
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 
+                0 20px 40px rgba(255, 68, 68, 0.4),
+                0 0 80px rgba(255, 68, 68, 0.2);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0) scale(1);
+        }
+
+        .submit-btn:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .submit-btn:hover:before {
+            left: 100%;
+        }
+
+        /* الشعارات */
+        .decoration {
+            text-align: center;
+            margin: 30px 0;
+            opacity: 0.7;
+        }
+
+        .emoji-line {
+            font-size: 2.5rem;
+            letter-spacing: 15px;
+            margin: 20px 0;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.7; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.1); }
+        }
+
+        /* التعديلات للجوال */
+        @media (max-width: 768px) {
+            .main-container {
+                padding: 15px;
+            }
+
+            .main-title {
+                font-size: 1.8rem;
+            }
+
+            .top-voice-badge {
+                font-size: 1.1rem;
+                padding: 10px 20px;
+            }
+
+            .announcement-card {
+                padding: 20px;
+            }
+
+            .input-field {
+                padding: 16px;
+                font-size: 1rem;
+            }
+
+            .submit-btn {
+                min-width: 100%;
+                padding: 22px 30px;
+                font-size: 1.2rem;
+            }
+
+            .emoji-line {
+                font-size: 2rem;
+                letter-spacing: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-title {
+                font-size: 1.6rem;
+            }
+
+            .card-title {
+                font-size: 1.4rem;
+            }
+
+            .input-label {
+                font-size: 1rem;
+            }
+
+            .requirements-section,
+            .rewards-section {
+                padding: 20px;
+            }
+        }
+
+        /* تخصيص شريط التمرير */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(var(--gold), var(--purple));
+            border-radius: 5px;
+        }
+
+        /* تأثير الإجبار */
+        .required-star {
+            color: var(--red);
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <!-- طبقات الخلفية المتحركة -->
+    <div class="bg-layers">
+        <div class="layer layer-1"></div>
+        <div class="layer layer-2"></div>
+        <div class="layer layer-3"></div>
+    </div>
+
+    <div class="main-container">
+        <!-- الهيدر -->
+        <div class="main-header">
+            <div class="top-voice-badge">
+                <i class="fas fa-crown"></i> TOP VOICE EVENT
+            </div>
+            <h1 class="main-title">🎤 إعلان حفلتك الاحترافية 🎤</h1>
+            <p class="main-subtitle">أعلن عن حفلتك الآن وتمتع بمزايا حصرية مع Top Voice</p>
+        </div>
+
+        <!-- بطاقة تعبئة البيانات -->
+        <div class="announcement-card">
+            <h2 class="card-title">
+                <i class="fas fa-edit"></i> تفاصيل الحفلة
+            </h2>
+
+            <div class="input-section">
+                <div class="input-label">
+                    <i class="fas fa-music input-icon"></i>
+                    <span>1. نوع الحفلة <span class="required-star">*</span></span>
+                </div>
+                <select class="input-field" id="partyType" required>
+                    <option value="">-- اختر نوع الحفلة --</option>
+                    <option value="غناء">🎤 غناء</option>
+                    <option value="كوميدي">😂 كوميدي</option>
+                    <option value="حوار">💬 حوار</option>
+                    <option value="افتتاح وكالة">💬 افتتاح وكالة</option>
+                    <option value="مسابقة">🏆 مسابقة</option>
+                    <option value="ارتباط">💘 ارتباط</option>
+                    <option value="شعر">📜 شعر</option>
+                </select>
+            </div>
+
+            <div class="input-section">
+                <div class="input-label">
+                    <i class="fas fa-heading input-icon"></i>
+                    <span>2. اسم الحفلة (لو موجود)</span>
+                </div>
+                <input type="text" class="input-field" id="partyName" placeholder="مثال: أمسية النجوم مع Top Voice">
+            </div>
+
+            <div class="input-section">
+                <div class="input-label">
+                    <i class="fas fa-user input-icon"></i>
+                    <span>3. اسم صاحب الحفلة / المنظم <span class="required-star">*</span></span>
+                </div>
+                <input type="text" class="input-field" id="organizer" placeholder="أدخل اسمك الكامل" required>
+            </div>
+
+            <div class="input-section">
+                <div class="input-label">
+                    <i class="fas fa-door-open input-icon"></i>
+                    <span>4. ID ال room (رقم الغرفة) <span class="required-star">*</span></span>
+                </div>
+                <input type="text" class="input-field" id="roomId" placeholder="أدخل رقم الغرفة" required>
+            </div>
+
+            <div class="input-section">
+                <div class="input-label">
+                    <i class="fas fa-calendar-alt input-icon"></i>
+                    <span>5. موعد الحفلة (التاريخ والوقت) <span class="required-star">*</span></span>
+                </div>
+                <input type="text" class="input-field" id="partyDate" placeholder="مثال: 25 ديسمبر 2024 - 10:00 مساءً" required>
+            </div>
+
+            <div class="input-section">
+                <div class="input-label">
+                    <i class="fas fa-clock input-icon"></i>
+                    <span>6. مدة الحفلة <span class="required-star">*</span></span>
+                </div>
+                <input type="text" class="input-field" id="partyDuration" placeholder="مثال: 3 ساعات" required>
+            </div>
+
+            <div class="input-section">
+                <div class="input-label">
+                    <i class="fas fa-users input-icon"></i>
+                    <span>7. متوقع عدد الدخلاء <span class="required-star">*</span></span>
+                </div>
+                <input type="text" class="input-field" id="expectedAttendance" placeholder="مثال: 100 مستخدم" required>
+            </div>
+
+            <div class="input-section">
+                <div class="input-label">
+                    <i class="fas fa-star input-icon"></i>
+                    <span>8. ضيوف مميزين (لو في)</span>
+                </div>
+                <textarea class="input-field" id="specialGuests" placeholder="أدخل أسماء الضيوف المميزين..."></textarea>
+            </div>
+
+            <div class="input-section">
+                <div class="input-label">
+                    <i class="fas fa-info-circle input-icon"></i>
+                    <span>10. أضف أي تفاصيل أخرى</span>
+                </div>
+                <textarea class="input-field" id="additionalDetails" placeholder="أي معلومات إضافية تريد إضافتها..."></textarea>
+            </div>
+        </div>
+
+        <!-- قسم الشروط -->
+        <div class="requirements-section">
+            <h3 class="requirements-title">
+                <i class="fas fa-clipboard-check"></i> شروط ومتطلبات الإيفنت
+            </h3>
+
+            <div class="requirement-item">
+                <i class="fas fa-users requirement-icon"></i>
+                <span><strong>عدد المشاهدين:</strong> يتخطى 50 مستخدم</span>
+            </div>
+
+            <div class="requirement-item">
+                <i class="fas fa-coins requirement-icon"></i>
+                <span><strong>أقل دخل للغرفة:</strong> 50 مليون كونزه</span>
+            </div>
+
+            <div class="requirement-item">
+                <i class="fas fa-clock requirement-icon"></i>
+                <span><strong>مدة الحدث:</strong> لا تقل عن ساعتين</span>
+            </div>
+
+            <div class="requirement-item">
+                <i class="fas fa-image requirement-icon"></i>
+                <span><strong>إعلان الحفلة:</strong> بانر قبل الحفلة ب 24 ساعة</span>
+            </div>
+
+            <div class="requirement-item">
+                <i class="fas fa-video requirement-icon"></i>
+                <span><strong>تسجيل الحدث:</strong> سكرينات وفيديو قبل وبعد ونصف الحفلة</span>
+            </div>
+
+            <div class="requirement-item">
+                <i class="fas fa-user-shield requirement-icon"></i>
+                <span><strong>دعوة إدارية:</strong> دعوة أداري لحضور الحفل</span>
+            </div>
+        </div>
+
+        <!-- قسم الجوائز -->
+        <div class="rewards-section">
+            <h3 class="rewards-title">
+                <i class="fas fa-trophy"></i> الجوائز والمميزات
+            </h3>
+
+            <div class="reward-item">
+                <i class="fas fa-certificate reward-icon"></i>
+                <span><strong>إطار نجم الحفلة:</strong> للضيف المميز</span>
+            </div>
+
+            <div class="reward-item">
+                <i class="fas fa-id-card reward-icon"></i>
+                <span><strong>دخلات بروفايل كارد:</strong> للمشتركين</span>
+            </div>
+
+            <div class="reward-item">
+                <i class="fas fa-wave-square reward-icon"></i>
+                <span><strong>موجات صوتية مميزة:</strong> للمتميزين</span>
+            </div>
+
+            <div class="reward-item">
+                <i class="fas fa-palette reward-icon"></i>
+                <span><strong>تلوين ID بجولد:</strong> للداعمين الكبار</span>
+            </div>
+
+            <div class="reward-item">
+                <i class="fas fa-gift reward-icon"></i>
+                <span><strong>نقاط مجانية:</strong> للداعمين اللي تجاوز دعمهم 50M أثناء الحفلة</span>
+            </div>
+        </div>
+
+        <!-- شعارات زخرفية -->
+        <div class="decoration">
+            <div class="emoji-line">✨ ⭐ 🎉 🎊 🏆 ⭐ ✨</div>
+        </div>
+
+        <!-- زر الإرسال -->
+        <div class="submit-container">
+            <button class="submit-btn" id="sendToWhatsAppBtn">
+                <i class="fab fa-whatsapp"></i>
+                اضغط هنا لإرسال طلبك عبر واتساب
+            </button>
+        </div>
+
+        <!-- شعارات زخرفية -->
+        <div class="decoration">
+            <div class="emoji-line">🎤 🎵 🎶 🎷 🎸 🥁 🎧</div>
+        </div>
+    </div>
+
+    <script>
+        // رقم الواتساب الثابت
+        const WHATSAPP_NUMBER = "201556864346";
+
+        // زر الإرسال إلى واتساب
+        document.getElementById('sendToWhatsAppBtn').addEventListener('click', function() {
+            // جمع البيانات من الحقول
+            const partyType = document.getElementById('partyType').value || 'غير محدد';
+            const partyName = document.getElementById('partyName').value || 'بدون اسم';
+            const organizer = document.getElementById('organizer').value || 'غير محدد';
+            const roomId = document.getElementById('roomId').value || 'غير محدد';
+            const partyDate = document.getElementById('partyDate').value || 'غير محدد';
+            const partyDuration = document.getElementById('partyDuration').value || 'غير محدد';
+            const expectedAttendance = document.getElementById('expectedAttendance').value || 'غير محدد';
+            const specialGuests = document.getElementById('specialGuests').value || 'لا يوجد';
+            const additionalDetails = document.getElementById('additionalDetails').value || 'لا توجد تفاصيل إضافية';
+
+            // التحقق من الحقول المطلوبة
+            if (!partyType || !organizer || !roomId || !partyDate || !partyDuration || !expectedAttendance) {
+                alert('⚠️ يرجى ملء جميع الحقول المطلوبة (الحقول التي بها *)');
+                return;
+            }
+
+            // إنشاء نص الإعلان
+            const announcementText = `
+🎉 *إعلان حفلة Top Voice الرسمي* 🎉
+
+*📌 معلومات الحفلة:*
+🎤 *نوع الحفلة:* ${partyType}
+🏷️ *اسم الحفلة:* ${partyName}
+👤 *المنظم:* ${organizer}
+🚪 *رقم الغرفة:* ${roomId}
+📅 *موعد الحفلة:* ${partyDate}
+⏳ *مدة الحفلة:* ${partyDuration}
+👥 *متوقع عدد الحضور:* ${expectedAttendance}
+
+${specialGuests !== 'لا يوجد' ? `⭐ *ضيوف مميزون:* ${specialGuests}\n` : ''}
+${additionalDetails !== 'لا توجد تفاصيل إضافية' ? `📝 *تفاصيل إضافية:* ${additionalDetails}\n` : ''}
+
+*✅ شروط الحفلة:*
+• عدد المشاهدين يتخطى 50 مستخدم
+• أقل دخل للغرفة 50 مليون كونزه
+• مدة الحدث لا تقل عن ساعتين
+• إعلان بالبانر قبل 24 ساعة
+• تسجيل كامل للحدث (صور وفيديو)
+• دعوة أداري للحضور
+
+*🏆 جوائز الحفلة:*
+• إطار نجم الحفلة للضيف المميز
+• دخلات بروفايل كارد للمشتركين
+• موجات صوتية مميزة
+• تلوين ID بجولد للداعمين الكبار
+• نقاط مجانية للداعمين فوق 50M
+
+🔥 *مع Top Voice - صانع النجوم* 🔥
+            `.trim();
+
+            // تشفير النص للرابط
+            const encodedText = encodeURIComponent(announcementText);
+            
+            // إنشاء رابط واتساب
+            const whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedText}`;
+            
+            // فتح الرابط في نافذة جديدة
+            window.open(whatsappLink, '_blank');
+            
+            // تأثير زر الضغط
+            const btn = this;
+            btn.style.transform = 'scale(0.95)';
+            btn.style.background = 'linear-gradient(45deg, #FF0000, #FF6B6B)';
+            
+            setTimeout(() => {
+                btn.style.transform = '';
+                btn.style.background = 'linear-gradient(45deg, var(--red), #FF6B6B)';
+            }, 200);
+            
+            // إضافة تأثير صوتي (محاكاة)
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.frequency.value = 523.25; // C5
+            oscillator.type = 'sine';
+            
+            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+            
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.5);
+        });
+
+        // إضافة تأثيرات للحقول عند التركيز
+        document.querySelectorAll('.input-field').forEach(field => {
+            field.addEventListener('focus', function() {
+                this.parentElement.parentElement.style.transform = 'translateY(-2px)';
+                this.style.boxShadow = '0 0 25px rgba(255, 215, 0, 0.3)';
+            });
+            
+            field.addEventListener('blur', function() {
+                this.parentElement.parentElement.style.transform = '';
+                this.style.boxShadow = '';
+            });
+        });
+
+        // تأثيرات عند تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            // تأثير ظهور متدرج للعناصر
+            const elements = document.querySelectorAll('.announcement-card, .requirements-section, .rewards-section, .submit-container');
+            elements.forEach((el, index) => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+            
+            // إضافة علامة نجمة للحقول المطلوبةبا
+            document.querySelectorAll('input[required], select[required]').forEach(field => {
+                field.style.borderRight = '4px solid var(--red)';
+            });
+        });
+
+        // تأثير عند التمرير
+        let lastScroll = 0;
+        window.addEventListener('scroll', function() {
+            const currentScroll = window.pageYOffset;
+            const scrolledDown = currentScroll > lastScroll;
+            
+            const header = document.querySelector('.main-header');
+            if (scrolledDown && currentScroll > 100) {
+                header.style.transform = 'translateY(-20px)';
+                header.style.opacity = '0.8';
+            } else {
+                header.style.transform = 'translateY(0)';
+                header.style.opacity = '1';
+            }
+            
+            lastScroll = currentScroll;
+        });
+    </script>
+</body>
+</html>
