@@ -211,39 +211,6 @@
             font-weight: 500;
             font-family: 'Tajawal', sans-serif;
             transition: all 0.3s ease;
-            -webkit-appearance: menulist-button !important; /* إصلاح للآيفون */
-            height: 60px; /* ارتفاع ثابت */
-        }
-
-        /* إصلاح خاص لقائمة الاختيار للجوال */
-        .select-wrapper {
-            position: relative;
-            width: 100%;
-        }
-
-        .select-wrapper select {
-            appearance: none;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            cursor: pointer;
-            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23FFD700'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
-            background-repeat: no-repeat;
-            background-position: left 20px center;
-            background-size: 20px;
-            padding-left: 50px;
-            padding-right: 20px;
-        }
-
-        /* إضافة سهم للجوال */
-        .select-wrapper:after {
-            content: '▼';
-            position: absolute;
-            top: 50%;
-            left: 20px;
-            transform: translateY(-50%);
-            color: var(--gold);
-            font-size: 1rem;
-            pointer-events: none;
         }
 
         .input-field:focus {
@@ -257,7 +224,138 @@
             min-height: 100px;
             resize: vertical;
             line-height: 1.6;
-            height: auto;
+        }
+
+        /* تصميم جديد لاختيار نوع الحفلة */
+        .party-type-selector {
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            border-radius: 15px;
+            padding: 10px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .selected-option {
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.1rem;
+            color: white;
+        }
+
+        .selected-option .arrow {
+            color: var(--gold);
+            transition: transform 0.3s;
+        }
+
+        .party-type-selector.active .selected-option .arrow {
+            transform: rotate(180deg);
+        }
+
+        .options-container {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+            background: rgba(10, 10, 30, 0.9);
+            border-radius: 10px;
+            margin-top: 5px;
+        }
+
+        .party-type-selector.active .options-container {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .option-item {
+            padding: 15px;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: white;
+        }
+
+        .option-item:hover {
+            background: rgba(255, 215, 0, 0.1);
+            padding-right: 20px;
+        }
+
+        .option-item.selected {
+            background: rgba(255, 215, 0, 0.2);
+            color: var(--gold);
+            border-right: 4px solid var(--gold);
+        }
+
+        .option-item i {
+            font-size: 1.3rem;
+            width: 30px;
+            text-align: center;
+        }
+
+        /* أزرار الاختيار السريع */
+        .quick-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .quick-option {
+            background: rgba(255, 215, 0, 0.1);
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            border-radius: 10px;
+            padding: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            color: white;
+        }
+
+        .quick-option:hover {
+            background: rgba(255, 215, 0, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .quick-option.active {
+            background: rgba(255, 215, 0, 0.3);
+            border-color: var(--gold);
+            color: var(--gold);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+        }
+
+        /* شريط البحث */
+        .search-container {
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 15px 45px 15px 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            border-radius: 10px;
+            color: white;
+            font-size: 1rem;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gold);
+            font-size: 1.2rem;
         }
 
         /* قسم الشروط */
@@ -421,7 +519,15 @@
             50% { opacity: 1; transform: scale(1.1); }
         }
 
-        /* إصلاحات خاصة للجوال */
+        /* رسائل التنبيه */
+        .error-message {
+            color: var(--red);
+            font-size: 0.9rem;
+            margin-top: 5px;
+            display: none;
+        }
+
+        /* التعديلات للجوال */
         @media (max-width: 768px) {
             .main-container {
                 padding: 15px;
@@ -443,18 +549,15 @@
             .input-field {
                 padding: 16px;
                 font-size: 1rem;
-                height: 55px; /* ارتفاع مناسب للجوال */
             }
 
-            .select-wrapper select {
-                padding-left: 45px;
-                padding-right: 15px;
+            .quick-options {
+                grid-template-columns: 1fr;
+            }
+
+            .quick-option {
+                padding: 15px;
                 font-size: 1rem;
-            }
-
-            .select-wrapper:after {
-                left: 15px;
-                font-size: 0.9rem;
             }
 
             .submit-btn {
@@ -466,6 +569,10 @@
             .emoji-line {
                 font-size: 2rem;
                 letter-spacing: 10px;
+            }
+
+            .option-item {
+                padding: 12px 15px;
             }
         }
 
@@ -487,36 +594,14 @@
                 padding: 20px;
             }
 
-            /* إصلاح نهائي للقائمة في الجوال الصغير */
-            .select-wrapper select {
-                -webkit-appearance: menulist !important;
-                appearance: menulist !important;
-            }
-        }
-
-        /* إصلاح خاص لآيفون */
-        @supports (-webkit-touch-callout: none) {
-            .select-wrapper select {
-                padding-right: 30px;
-                background-position: left 15px center;
-            }
-            
-            .input-field {
-                font-size: 16px; /* يمنع التكبير التلقائي */
-            }
-        }
-
-        /* إصلاح لأندرويد */
-        @media screen and (-webkit-min-device-pixel-ratio:0) {
-            .select-wrapper select {
-                -webkit-appearance: menulist !important;
-                appearance: menulist !important;
+            .options-container {
+                max-height: 250px;
             }
         }
 
         /* تخصيص شريط التمرير */
         ::-webkit-scrollbar {
-            width: 10px;
+            width: 8px;
         }
 
         ::-webkit-scrollbar-track {
@@ -533,6 +618,18 @@
         .required-star {
             color: var(--red);
             margin-right: 5px;
+        }
+
+        /* أنيميشن للخيارات */
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .option-item {
+            animation: slideDown 0.3s ease forwards;
+            animation-delay: calc(var(--item-index) * 0.05s);
+            opacity: 0;
         }
     </style>
 </head>
@@ -560,26 +657,42 @@
                 <i class="fas fa-edit"></i> تفاصيل الحفلة
             </h2>
 
+            <!-- خيارات سريعة -->
+            <div class="quick-options">
+                <div class="quick-option" data-type="غناء">
+                    <i class="fas fa-microphone"></i> غناء
+                </div>
+                <div class="quick-option" data-type="كوميدي">
+                    <i class="fas fa-laugh"></i> كوميدي
+                </div>
+                <div class="quick-option" data-type="حوار">
+                    <i class="fas fa-comments"></i> حوار
+                </div>
+                <div class="quick-option" data-type="مسابقة">
+                    <i class="fas fa-trophy"></i> مسابقة
+                </div>
+            </div>
+
+            <!-- محدد نوع الحفلة المبتكر -->
             <div class="input-section">
                 <div class="input-label">
                     <i class="fas fa-music input-icon"></i>
                     <span>1. نوع الحفلة <span class="required-star">*</span></span>
                 </div>
-                <div class="select-wrapper">
-                    <select class="input-field" id="partyType" required>
-                        <option value="">-- اختر نوع الحفلة --</option>
-                        <option value="غناء">🎤 غناء</option>
-                        <option value="كوميدي">😂 كوميدي</option>
-                        <option value="حوار">💬 حوار</option>
-                        <option value="مسابقة">🏆 مسابقة</option>
-                        <option value="ارتباط">💘 ارتباط</option>
-                        <option value="شعر">📜 شعر</option>
-                        <option value="راقص">💃 رقص</option>
-                        <option value="مسابقات">🎯 مسابقات ترفيهية</option>
-                        <option value="تكريم">🏅 تكريم</option>
-                        <option value="افتتاح">🎊 افتتاح وكالة</option>
-                    </select>
+                
+                <div class="party-type-selector" id="partyTypeSelector">
+                    <div class="selected-option">
+                        <span id="selectedTypeText">-- اختر نوع الحفلة --</span>
+                        <span class="arrow">▼</span>
+                    </div>
+                    
+                    <div class="options-container" id="optionsContainer">
+                        <!-- سيتم ملؤها بالجافاسكريبت -->
+                    </div>
                 </div>
+                
+                <input type="hidden" id="partyType" value="">
+                <div class="error-message" id="typeError">يجب اختيار نوع الحفلة</div>
             </div>
 
             <div class="input-section">
@@ -739,6 +852,140 @@
         // رقم الواتساب الثابت
         const WHATSAPP_NUMBER = "201556864346";
 
+        // أنواع الحفلات مع أيقونات
+        const partyTypes = [
+            { value: "غناء", icon: "fas fa-microphone", text: "🎤 غناء" },
+            { value: "كوميدي", icon: "fas fa-laugh", text: "😂 كوميدي" },
+            { value: "حوار", icon: "fas fa-comments", text: "💬 حوار" },
+            { value: "مسابقة", icon: "fas fa-trophy", text: "🏆 مسابقة" },
+            { value: "ارتباط", icon: "fas fa-heart", text: "💘 ارتباط" },
+            { value: "شعر", icon: "fas fa-pen-alt", text: "📜 شعر" },
+            { value: "راقص", icon: "fas fa-user-friends", text: "💃 رقص" },
+            { value: "تكريم", icon: "fas fa-award", text: "🏅 تكريم" },
+            { value: "افتتاح", icon: "fas fa-door-open", text: "🎊 افتتاح وكالة" },
+            { value: "منوعات", icon: "fas fa-star", text: "⭐ منوعات" },
+            { value: "تعارف", icon: "fas fa-users", text: "👥 تعارف" },
+            { value: "ألعاب", icon: "fas fa-gamepad", text: "🎮 ألعاب" }
+        ];
+
+        // تهيئة محدد نوع الحفلة
+        function initializePartyTypeSelector() {
+            const selector = document.getElementById('partyTypeSelector');
+            const optionsContainer = document.getElementById('optionsContainer');
+            const selectedTypeText = document.getElementById('selectedTypeText');
+            const partyTypeInput = document.getElementById('partyType');
+
+            // إنشاء خيارات القائمة
+            partyTypes.forEach((type, index) => {
+                const option = document.createElement('div');
+                option.className = 'option-item';
+                option.style.setProperty('--item-index', index);
+                option.innerHTML = `
+                    <i class="${type.icon}"></i>
+                    <span>${type.text}</span>
+                `;
+                
+                option.addEventListener('click', () => {
+                    // تحديث النص المختار
+                    selectedTypeText.innerHTML = `
+                        <i class="${type.icon}"></i>
+                        <span>${type.text}</span>
+                    `;
+                    
+                    // تحديث الحقل المخفي
+                    partyTypeInput.value = type.value;
+                    
+                    // إضافة حالة التحديد
+                    document.querySelectorAll('.option-item').forEach(item => {
+                        item.classList.remove('selected');
+                    });
+                    option.classList.add('selected');
+                    
+                    // إغلاق القائمة
+                    selector.classList.remove('active');
+                    
+                    // إخفاء رسالة الخطأ
+                    document.getElementById('typeError').style.display = 'none';
+                    
+                    // إضافة تأثير
+                    option.style.animation = 'none';
+                    setTimeout(() => {
+                        option.style.animation = 'slideDown 0.3s ease forwards';
+                    }, 10);
+                });
+                
+                optionsContainer.appendChild(option);
+            });
+
+            // فتح/إغلاق القائمة
+            selector.addEventListener('click', function(e) {
+                if (e.target.closest('.option-item')) return;
+                this.classList.toggle('active');
+                
+                if (this.classList.contains('active')) {
+                    // إضافة أنيميشن للخيارات عند الفتح
+                    document.querySelectorAll('.option-item').forEach((item, index) => {
+                        item.style.animationDelay = `${index * 0.05}s`;
+                    });
+                }
+            });
+
+            // إغلاق القائمة عند النقر خارجها
+            document.addEventListener('click', function(e) {
+                if (!selector.contains(e.target)) {
+                    selector.classList.remove('active');
+                }
+            });
+        }
+
+        // تهيئة الأزرار السريعة
+        function initializeQuickOptions() {
+            const quickOptions = document.querySelectorAll('.quick-option');
+            
+            quickOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    const typeValue = this.dataset.type;
+                    const typeData = partyTypes.find(t => t.value === typeValue);
+                    
+                    if (typeData) {
+                        // تحديث النص المختار
+                        document.getElementById('selectedTypeText').innerHTML = `
+                            <i class="${typeData.icon}"></i>
+                            <span>${typeData.text}</span>
+                        `;
+                        
+                        // تحديث الحقل المخفي
+                        document.getElementById('partyType').value = typeData.value;
+                        
+                        // إزالة التحديد من جميع الأزرار
+                        quickOptions.forEach(opt => {
+                            opt.classList.remove('active');
+                        });
+                        
+                        // إضافة التحديد للزر الحالي
+                        this.classList.add('active');
+                        
+                        // تحديث الخيار المختار في القائمة
+                        document.querySelectorAll('.option-item').forEach(item => {
+                            item.classList.remove('selected');
+                            if (item.querySelector('span').textContent.includes(typeData.text)) {
+                                item.classList.add('selected');
+                            }
+                        });
+                        
+                        // إخفاء رسالة الخطأ
+                        document.getElementById('typeError').style.display = 'none';
+                        
+                        // تأثير عند الاختيار
+                        this.style.transform = 'scale(0.95)';
+                        setTimeout(() => {
+                            this.style.transform = '';
+                        }, 200);
+                    }
+                });
+            });
+        }
+
         // زر الإرسال إلى واتساب
         document.getElementById('sendToWhatsAppBtn').addEventListener('click', function() {
             // جمع البيانات من الحقول
@@ -753,7 +1000,29 @@
             const additionalDetails = document.getElementById('additionalDetails').value || 'لا توجد تفاصيل إضافية';
 
             // التحقق من الحقول المطلوبة
-            if (!partyType || !organizer || !roomId || !partyDate || !partyDuration || !expectedAttendance) {
+            let hasError = false;
+            
+            if (!partyType || partyType === 'غير محدد') {
+                document.getElementById('typeError').style.display = 'block';
+                document.getElementById('partyTypeSelector').style.borderColor = 'var(--red)';
+                hasError = true;
+            } else {
+                document.getElementById('typeError').style.display = 'none';
+                document.getElementById('partyTypeSelector').style.borderColor = 'rgba(255, 215, 0, 0.3)';
+            }
+            
+            const requiredFields = ['organizer', 'roomId', 'partyDate', 'partyDuration', 'expectedAttendance'];
+            requiredFields.forEach(fieldId => {
+                const field = document.getElementById(fieldId);
+                if (!field.value.trim()) {
+                    field.style.borderColor = 'var(--red)';
+                    hasError = true;
+                } else {
+                    field.style.borderColor = 'rgba(255, 215, 0, 0.3)';
+                }
+            });
+
+            if (hasError) {
                 alert('⚠️ يرجى ملء جميع الحقول المطلوبة (الحقول التي بها *)');
                 return;
             }
@@ -812,44 +1081,11 @@ ${additionalDetails !== 'لا توجد تفاصيل إضافية' ? `📝 *تف�
             }, 200);
         });
 
-        // إضافة تأثيرات للحقول عند التركيز
-        document.querySelectorAll('.input-field').forEach(field => {
-            field.addEventListener('focus', function() {
-                this.parentElement.parentElement.style.transform = 'translateY(-2px)';
-                this.style.boxShadow = '0 0 25px rgba(255, 215, 0, 0.3)';
-            });
-            
-            field.addEventListener('blur', function() {
-                this.parentElement.parentElement.style.transform = '';
-                this.style.boxShadow = '';
-            });
-        });
-
-        // حل نهائي لمشكلة القائمة في الجوال
-        document.getElementById('partyType').addEventListener('click', function(e) {
-            // السماح للقائمة بالفتح تلقائياً
-            if (window.innerWidth <= 768) {
-                // إعادة فتح القائمة إذا كانت مغلقة
-                setTimeout(() => {
-                    this.blur();
-                    setTimeout(() => {
-                        this.focus();
-                    }, 100);
-                }, 50);
-            }
-        });
-
-        // إصلاح خاص للآيفون
-        if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) {
-            const selectElement = document.getElementById('partyType');
-            selectElement.style.fontSize = '16px'; // يمنع التكبير التلقائي
-            selectElement.addEventListener('touchstart', function() {
-                this.style.fontSize = '16px';
-            });
-        }
-
         // تأثيرات عند تحميل الصفحة
         document.addEventListener('DOMContentLoaded', function() {
+            initializePartyTypeSelector();
+            initializeQuickOptions();
+            
             // تأثير ظهور متدرج للعناصر
             const elements = document.querySelectorAll('.announcement-card, .requirements-section, .rewards-section, .submit-container');
             elements.forEach((el, index) => {
@@ -862,29 +1098,11 @@ ${additionalDetails !== 'لا توجد تفاصيل إضافية' ? `📝 *تف�
                     el.style.transform = 'translateY(0)';
                 }, index * 100);
             });
-            
-            // إضافة علامة نجمة للحقول المطلوبة
-            document.querySelectorAll('input[required], select[required]').forEach(field => {
-                field.style.borderRight = '4px solid var(--red)';
-            });
         });
 
-        // تأثير عند التمرير
-        let lastScroll = 0;
+        // إغلاق القائمة عند التمرير
         window.addEventListener('scroll', function() {
-            const currentScroll = window.pageYOffset;
-            const scrolledDown = currentScroll > lastScroll;
-            
-            const header = document.querySelector('.main-header');
-            if (scrolledDown && currentScroll > 100) {
-                header.style.transform = 'translateY(-20px)';
-                header.style.opacity = '0.8';
-            } else {
-                header.style.transform = 'translateY(0)';
-                header.style.opacity = '1';
-            }
-            
-            lastScroll = currentScroll;
+            document.getElementById('partyTypeSelector').classList.remove('active');
         });
     </script>
 </body>
