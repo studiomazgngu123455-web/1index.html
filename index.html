@@ -211,6 +211,39 @@
             font-weight: 500;
             font-family: 'Tajawal', sans-serif;
             transition: all 0.3s ease;
+            -webkit-appearance: menulist-button !important; /* إصلاح للآيفون */
+            height: 60px; /* ارتفاع ثابت */
+        }
+
+        /* إصلاح خاص لقائمة الاختيار للجوال */
+        .select-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        .select-wrapper select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            cursor: pointer;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23FFD700'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: left 20px center;
+            background-size: 20px;
+            padding-left: 50px;
+            padding-right: 20px;
+        }
+
+        /* إضافة سهم للجوال */
+        .select-wrapper:after {
+            content: '▼';
+            position: absolute;
+            top: 50%;
+            left: 20px;
+            transform: translateY(-50%);
+            color: var(--gold);
+            font-size: 1rem;
+            pointer-events: none;
         }
 
         .input-field:focus {
@@ -220,19 +253,11 @@
             background: rgba(0, 0, 0, 0.5);
         }
 
-        select.input-field {
-            appearance: none;
-            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23FFD700'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
-            background-repeat: no-repeat;
-            background-position: left 20px center;
-            background-size: 20px;
-            padding-left: 50px;
-        }
-
         textarea.input-field {
             min-height: 100px;
             resize: vertical;
             line-height: 1.6;
+            height: auto;
         }
 
         /* قسم الشروط */
@@ -396,7 +421,7 @@
             50% { opacity: 1; transform: scale(1.1); }
         }
 
-        /* التعديلات للجوال */
+        /* إصلاحات خاصة للجوال */
         @media (max-width: 768px) {
             .main-container {
                 padding: 15px;
@@ -418,6 +443,18 @@
             .input-field {
                 padding: 16px;
                 font-size: 1rem;
+                height: 55px; /* ارتفاع مناسب للجوال */
+            }
+
+            .select-wrapper select {
+                padding-left: 45px;
+                padding-right: 15px;
+                font-size: 1rem;
+            }
+
+            .select-wrapper:after {
+                left: 15px;
+                font-size: 0.9rem;
             }
 
             .submit-btn {
@@ -448,6 +485,32 @@
             .requirements-section,
             .rewards-section {
                 padding: 20px;
+            }
+
+            /* إصلاح نهائي للقائمة في الجوال الصغير */
+            .select-wrapper select {
+                -webkit-appearance: menulist !important;
+                appearance: menulist !important;
+            }
+        }
+
+        /* إصلاح خاص لآيفون */
+        @supports (-webkit-touch-callout: none) {
+            .select-wrapper select {
+                padding-right: 30px;
+                background-position: left 15px center;
+            }
+            
+            .input-field {
+                font-size: 16px; /* يمنع التكبير التلقائي */
+            }
+        }
+
+        /* إصلاح لأندرويد */
+        @media screen and (-webkit-min-device-pixel-ratio:0) {
+            .select-wrapper select {
+                -webkit-appearance: menulist !important;
+                appearance: menulist !important;
             }
         }
 
@@ -502,17 +565,21 @@
                     <i class="fas fa-music input-icon"></i>
                     <span>1. نوع الحفلة <span class="required-star">*</span></span>
                 </div>
-                <select class="input-field" id="partyType" required>
-                    <option value="">-- اختر نوع الحفلة --</option>
-                    <option value="غناء">🎤 غناء</option>
-                    <option value="كوميدي">😂 كوميدي</option>
-                    <option value="حوار">💬 حوار</option>
-                    <option value="افتتاح وكالة">💬 افتتاح وكالة</option>
-                    <option value="مسابقة">🏆 مسابقة</option>
-                    <option value="ارتباط">💘 ارتباط</option>
-                    <option value="ارتباط">💘 عيد ميلاد</option>               
-                    <option value="شعر">📜 شعر</option>
-                </select>
+                <div class="select-wrapper">
+                    <select class="input-field" id="partyType" required>
+                        <option value="">-- اختر نوع الحفلة --</option>
+                        <option value="غناء">🎤 غناء</option>
+                        <option value="كوميدي">😂 كوميدي</option>
+                        <option value="حوار">💬 حوار</option>
+                        <option value="مسابقة">🏆 مسابقة</option>
+                        <option value="ارتباط">💘 ارتباط</option>
+                        <option value="شعر">📜 شعر</option>
+                        <option value="راقص">💃 رقص</option>
+                        <option value="مسابقات">🎯 مسابقات ترفيهية</option>
+                        <option value="تكريم">🏅 تكريم</option>
+                        <option value="افتتاح">🎊 افتتاح وكالة</option>
+                    </select>
+                </div>
             </div>
 
             <div class="input-section">
@@ -743,23 +810,6 @@ ${additionalDetails !== 'لا توجد تفاصيل إضافية' ? `📝 *تف�
                 btn.style.transform = '';
                 btn.style.background = 'linear-gradient(45deg, var(--red), #FF6B6B)';
             }, 200);
-            
-            // إضافة تأثير صوتي (محاكاة)
-            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-            const oscillator = audioContext.createOscillator();
-            const gainNode = audioContext.createGain();
-            
-            oscillator.connect(gainNode);
-            gainNode.connect(audioContext.destination);
-            
-            oscillator.frequency.value = 523.25; // C5
-            oscillator.type = 'sine';
-            
-            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
-            
-            oscillator.start(audioContext.currentTime);
-            oscillator.stop(audioContext.currentTime + 0.5);
         });
 
         // إضافة تأثيرات للحقول عند التركيز
@@ -774,6 +824,29 @@ ${additionalDetails !== 'لا توجد تفاصيل إضافية' ? `📝 *تف�
                 this.style.boxShadow = '';
             });
         });
+
+        // حل نهائي لمشكلة القائمة في الجوال
+        document.getElementById('partyType').addEventListener('click', function(e) {
+            // السماح للقائمة بالفتح تلقائياً
+            if (window.innerWidth <= 768) {
+                // إعادة فتح القائمة إذا كانت مغلقة
+                setTimeout(() => {
+                    this.blur();
+                    setTimeout(() => {
+                        this.focus();
+                    }, 100);
+                }, 50);
+            }
+        });
+
+        // إصلاح خاص للآيفون
+        if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) {
+            const selectElement = document.getElementById('partyType');
+            selectElement.style.fontSize = '16px'; // يمنع التكبير التلقائي
+            selectElement.addEventListener('touchstart', function() {
+                this.style.fontSize = '16px';
+            });
+        }
 
         // تأثيرات عند تحميل الصفحة
         document.addEventListener('DOMContentLoaded', function() {
@@ -790,7 +863,7 @@ ${additionalDetails !== 'لا توجد تفاصيل إضافية' ? `📝 *تف�
                 }, index * 100);
             });
             
-            // إضافة علامة نجمة للحقول المطلوبةبا
+            // إضافة علامة نجمة للحقول المطلوبة
             document.querySelectorAll('input[required], select[required]').forEach(field => {
                 field.style.borderRight = '4px solid var(--red)';
             });
@@ -816,4 +889,3 @@ ${additionalDetails !== 'لا توجد تفاصيل إضافية' ? `📝 *تف�
     </script>
 </body>
 </html>
-
