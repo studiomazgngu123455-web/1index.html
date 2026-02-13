@@ -3,372 +3,553 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>إعلان حفلة Top Voice</title>
+    <title>🌙 رمضانيات Top Voice</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
     <style>
-        /* Reset سريع */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         :root {
             --gold: #FFD700;
-            --gold-dark: #FFA500;
-            --purple: #8A2BE2;
-            --red: #FF4444;
-            --blue: #1E90FF;
-            --black: #0A0A0A;
-            --dark: #1A1A2E;
-            --light: #F8F9FA;
+            --gold-glow: #ffbf00;
+            --night-blue: #0F172A;
+            --deep-purple: #240b36;
+            --lantern-orange: #FF8C00;
+            --emerald: #10B981;
+            --text-light: #F8F9FA;
+            --card-bg: rgba(20, 20, 40, 0.75);
+            --border-gold: rgba(255, 215, 0, 0.4);
         }
-        
+
         body {
-            background: linear-gradient(135deg, var(--black) 0%, var(--dark) 100%);
+            background: radial-gradient(circle at 50% 100%, #2b1055, #0F172A);
             font-family: 'Tajawal', sans-serif;
-            color: var(--light);
+            color: var(--text-light);
             min-height: 100vh;
             padding: 0;
-            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
         }
-        
-        /* الحاوية الرئيسية - مسبق التحميل */
+
+        /* طبقات الخلفية المتحركة */
+        .bg-layers {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        /* نجوم في الخلفية */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: 
+                radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 3px),
+                radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 2px),
+                radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 3px);
+            background-size: 550px 550px, 350px 350px, 250px 250px;
+            background-position: 0 0, 40px 60px, 130px 270px;
+            z-index: -2;
+            opacity: 0.6;
+        }
+
+        /* زينة رمضان */
+        .ramadan-decorations {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 200px;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .lantern {
+            position: absolute;
+            top: -20px;
+            transform-origin: top center;
+            animation: swing 3s infinite ease-in-out alternate;
+            color: var(--gold);
+            filter: drop-shadow(0 0 10px var(--gold-glow));
+            font-size: 2.5rem;
+        }
+
+        /* حبل الفانوس لتعليقه من الأعلى */
+        .lantern::before {
+            content: "";
+            position: absolute;
+            top: -150px;
+            left: 50%;
+            width: 2px;
+            height: 150px;
+            background: linear-gradient(to bottom, transparent, var(--gold));
+            transform: translateX(-50%);
+        }
+
+        .l1 { left: 10%; animation-duration: 3.5s; font-size: 3rem; top: -10px; }
+        .l2 { left: 85%; animation-duration: 4s; font-size: 2.8rem; top: -15px; }
+        .l3 { left: 20%; animation-duration: 5s; font-size: 2rem; top: -30px; opacity: 0.8; }
+        .l4 { left: 75%; animation-duration: 4.5s; font-size: 2.2rem; top: -25px; opacity: 0.8; }
+
+        .crescent {
+            position: absolute;
+            top: 50px;
+            right: 50%;
+            transform: translateX(50%);
+            font-size: 4rem;
+            color: var(--text-light);
+            text-shadow: 0 0 20px var(--text-light), 0 0 40px var(--gold);
+            opacity: 0.9;
+            animation: glowMoon 4s infinite alternate;
+        }
+
+        @keyframes swing {
+            0% { transform: rotate(5deg); }
+            100% { transform: rotate(-5deg); }
+        }
+
+        @keyframes glowMoon {
+            0% { text-shadow: 0 0 20px var(--text-light), 0 0 40px var(--gold); transform: translateX(50%) scale(1); }
+            100% { text-shadow: 0 0 30px var(--text-light), 0 0 60px var(--gold); transform: translateX(50%) scale(1.05); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(180deg); }
+        }
+
+        /* الحاوية الرئيسية */
         .main-container {
             max-width: 500px;
             margin: 0 auto;
-            padding: 15px;
-            opacity: 1;
-            animation: fadeIn 0.5s ease;
+            padding: 20px;
+            position: relative;
+            z-index: 10;
         }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
+
         /* الهيدر */
         .main-header {
             text-align: center;
-            padding: 20px 0;
-            margin-bottom: 20px;
+            padding: 100px 0 30px; /* Increased padding for decorations */
+            position: relative;
         }
-        
+
         .top-voice-badge {
             display: inline-block;
-            background: linear-gradient(45deg, var(--gold), var(--gold-dark));
-            color: var(--black);
-            padding: 10px 20px;
+            background: linear-gradient(45deg, var(--gold), #FDB931);
+            color: #000;
+            padding: 12px 25px;
             border-radius: 50px;
-            font-weight: 800;
-            font-size: 1.2rem;
-            margin-bottom: 15px;
+            font-weight: 900;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
             border: 3px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+            animation: badgeGlow 2s infinite alternate;
         }
-        
+
+        @keyframes badgeGlow {
+            0% { box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3); }
+            100% { box-shadow: 0 10px 40px rgba(255, 215, 0, 0.6), 0 0 60px rgba(255, 215, 0, 0.3); }
+        }
+
         .main-title {
-            font-size: 1.8rem;
+            font-size: 2.2rem;
             font-weight: 900;
             margin-bottom: 10px;
-            background: linear-gradient(45deg, var(--gold), var(--red));
+            background: linear-gradient(45deg, #fff, var(--gold), #fff);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            line-height: 1.2;
         }
-        
+
         .main-subtitle {
-            font-size: 1rem;
+            font-size: 1.1rem;
             color: rgba(255, 255, 255, 0.8);
-            margin-top: 10px;
+            margin-top: 15px;
+            padding: 0 10px;
         }
-        
+
         /* بطاقة الإعلان */
         .announcement-card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            padding: 20px;
-            margin-bottom: 20px;
-            border: 2px solid rgba(255, 215, 0, 0.2);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            padding: 30px;
+            margin-bottom: 25px;
+            border: 1px solid var(--border-gold);
+            box-shadow: 
+                0 15px 35px rgba(0, 0, 0, 0.6),
+                inset 0 0 20px rgba(255, 215, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease;
         }
-        
+
+        .announcement-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--gold);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7), inset 0 0 30px rgba(255, 215, 0, 0.1);
+        }
+
         .card-title {
             color: var(--gold);
-            font-size: 1.4rem;
-            margin-bottom: 20px;
+            font-size: 1.6rem;
+            margin-bottom: 25px;
             text-align: center;
-            padding-bottom: 10px;
-            border-bottom: 2px solid rgba(255, 215, 0, 0.3);
+            position: relative;
+            padding-bottom: 15px;
         }
-        
+
+        .card-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 35%;
+            left: 35%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            border-radius: 3px;
+        }
+
         /* حقول الإدخال */
         .input-section {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
-        
+
         .input-label {
-            display: block;
-            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
             color: var(--gold);
             font-weight: 700;
-            font-size: 1rem;
+            font-size: 1.1rem;
         }
-        
+
+        .input-icon {
+            color: var(--gold);
+            font-size: 1.2rem;
+        }
+
         .input-field {
             width: 100%;
-            padding: 14px;
-            background: rgba(0, 0, 0, 0.3);
-            border: 2px solid rgba(255, 215, 0, 0.3);
-            border-radius: 12px;
+            padding: 18px 20px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border-gold);
+            border-radius: 15px;
             color: white;
-            font-size: 1rem;
+            font-size: 1.1rem;
+            font-weight: 500;
             font-family: 'Tajawal', sans-serif;
-            transition: border-color 0.2s;
+            transition: all 0.3s ease;
+            cursor: pointer;
         }
-        
+
         .input-field:focus {
             outline: none;
             border-color: var(--gold);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        select.input-field {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23FFD700'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: left 20px center;
+            background-size: 20px;
+            padding-left: 50px;
         }
         
-        textarea.input-field {
-            min-height: 80px;
-            resize: vertical;
-        }
-        
-        /* اختيارات نوع الحفلة - محسنة للجوال */
-        .party-type-options {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
-            margin-bottom: 15px;
-        }
-        
-        .type-option {
-            background: rgba(255, 215, 0, 0.1);
-            border: 2px solid rgba(255, 215, 0, 0.3);
-            border-radius: 8px;
-            padding: 10px 5px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-size: 0.9rem;
-            font-weight: 600;
+        /* إصلاح خلفية الخيارات في الجوال لضمان ظهور النص */
+        select.input-field option {
+            background-color: var(--night-blue);
             color: white;
-            min-height: 50px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 5px;
         }
-        
-        .type-option i {
-            font-size: 1.2rem;
-            margin-bottom: 3px;
+
+        textarea.input-field {
+            min-height: 100px;
+            resize: vertical;
+            line-height: 1.6;
         }
-        
-        .type-option:hover {
-            background: rgba(255, 215, 0, 0.2);
-            transform: translateY(-2px);
-        }
-        
-        .type-option.selected {
-            background: rgba(255, 215, 0, 0.3);
-            border-color: var(--gold);
-            color: var(--gold);
-            box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
-        }
-        
-        /* رسالة الخطأ */
-        .error-message {
-            color: var(--red);
-            font-size: 0.9rem;
-            margin-top: 5px;
-            display: none;
-        }
-        
+
         /* قسم الشروط */
         .requirements-section {
-            background: linear-gradient(135deg, rgba(138, 43, 226, 0.1), rgba(75, 0, 130, 0.2));
+            background: linear-gradient(135deg, rgba(36, 11, 54, 0.6), rgba(15, 23, 42, 0.6));
             border-radius: 20px;
-            padding: 20px;
-            margin-bottom: 20px;
-            border: 2px solid rgba(138, 43, 226, 0.3);
+            padding: 25px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(138, 43, 226, 0.4);
         }
-        
+
         .requirements-title {
-            color: var(--purple);
-            font-size: 1.3rem;
-            margin-bottom: 15px;
+            color: #D8BFD8;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
             text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
-        
+
         .requirement-item {
             background: rgba(0, 0, 0, 0.2);
-            padding: 12px;
-            border-radius: 10px;
-            margin-bottom: 10px;
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 12px;
             border-right: 4px solid var(--purple);
-            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: transform 0.3s ease;
         }
-        
+
+        .requirement-item:hover {
+            transform: translateX(-5px);
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .requirement-icon {
+            color: var(--purple);
+            font-size: 1.3rem;
+            min-width: 30px;
+        }
+
         /* قسم الجوائز */
         .rewards-section {
             background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 165, 0, 0.2));
             border-radius: 20px;
-            padding: 20px;
-            margin-bottom: 20px;
+            padding: 25px;
+            margin-bottom: 25px;
             border: 2px solid rgba(255, 215, 0, 0.3);
         }
-        
+
         .rewards-title {
             color: var(--gold);
-            font-size: 1.3rem;
-            margin-bottom: 15px;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
             text-align: center;
-        }
-        
-        .reward-item {
-            background: rgba(0, 0, 0, 0.2);
-            padding: 12px;
-            border-radius: 10px;
-            margin-bottom: 10px;
-            border-right: 4px solid var(--gold);
-            font-size: 0.95rem;
-        }
-        
-        /* زر الإرسال */
-        .submit-container {
-            margin: 30px 0;
-            text-align: center;
-        }
-        
-        .submit-btn {
-            background: linear-gradient(45deg, var(--red), #FF6B6B);
-            color: white;
-            border: none;
-            padding: 20px 40px;
-            font-size: 1.2rem;
-            font-weight: 900;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: transform 0.2s;
-            display: inline-flex;
+            display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
-            width: 100%;
-            max-width: 350px;
-            box-shadow: 0 10px 20px rgba(255, 68, 68, 0.3);
         }
-        
+
+        .reward-item {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            border-right: 4px solid var(--gold);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .reward-item:hover {
+            transform: translateX(-5px);
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .reward-icon {
+            color: var(--gold);
+            font-size: 1.3rem;
+            min-width: 30px;
+        }
+
+        /* زر الإرسال */
+        .submit-container {
+            margin: 40px 0 30px;
+            text-align: center;
+        }
+
+        .submit-btn {
+            background: linear-gradient(45deg, var(--gold), #FDB931);
+            color: #000;
+            border: none;
+            padding: 25px 50px;
+            font-size: 1.4rem;
+            font-weight: 900;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            min-width: 300px;
+            box-shadow: 
+                0 15px 30px rgba(255, 215, 0, 0.3),
+                0 0 50px rgba(255, 215, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
         .submit-btn:hover {
-            transform: translateY(-3px);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 
+                0 20px 40px rgba(255, 215, 0, 0.4),
+                0 0 80px rgba(255, 215, 0, 0.2);
         }
-        
+
         .submit-btn:active {
-            transform: translateY(0);
+            transform: translateY(0) scale(1);
         }
-        
-        /* الشعارات البسيطة */
+
+        .submit-btn:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .submit-btn:hover:before {
+            left: 100%;
+        }
+
+        /* الشعارات */
         .decoration {
             text-align: center;
-            margin: 20px 0;
+            margin: 30px 0;
             opacity: 0.7;
         }
-        
+
         .emoji-line {
-            font-size: 2rem;
-            letter-spacing: 10px;
-            margin: 10px 0;
+            font-size: 2.5rem;
+            letter-spacing: 15px;
+            margin: 20px 0;
+            animation: pulse 2s infinite;
         }
-        
-        /* نجمة الحقل المطلوب */
-        .required-star {
-            color: var(--red);
-            margin-right: 5px;
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.7; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.1); }
         }
-        
-        /* تحسينات للجوال */
+
+        /* التعديلات للجوال */
         @media (max-width: 768px) {
             .main-container {
-                padding: 10px;
+                padding: 15px;
             }
-            
+
+            .main-title {
+                font-size: 1.8rem;
+            }
+
+            .top-voice-badge {
+                font-size: 1.1rem;
+                padding: 10px 20px;
+            }
+
+            .announcement-card {
+                padding: 20px;
+            }
+
+            .input-field {
+                padding: 16px;
+                font-size: 1rem;
+            }
+
+            .submit-btn {
+                min-width: 100%;
+                padding: 22px 30px;
+                font-size: 1.2rem;
+            }
+
+            .emoji-line {
+                font-size: 2rem;
+                letter-spacing: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
             .main-title {
                 font-size: 1.6rem;
             }
-            
-            .top-voice-badge {
-                font-size: 1.1rem;
-                padding: 8px 16px;
-            }
-            
-            .party-type-options {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 6px;
-            }
-            
-            .type-option {
-                padding: 8px 3px;
-                font-size: 0.85rem;
-                min-height: 45px;
-            }
-            
-            .type-option i {
-                font-size: 1.1rem;
-            }
-            
-            .submit-btn {
-                padding: 18px 30px;
-                font-size: 1.1rem;
-            }
-            
-            .emoji-line {
-                font-size: 1.8rem;
-                letter-spacing: 8px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .party-type-options {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .type-option {
-                padding: 7px 2px;
-                font-size: 0.8rem;
-            }
-            
-            .input-field {
-                padding: 12px;
-            }
-            
+
             .card-title {
-                font-size: 1.3rem;
+                font-size: 1.4rem;
+            }
+
+            .input-label {
+                font-size: 1rem;
+            }
+
+            .requirements-section,
+            .rewards-section {
+                padding: 20px;
             }
         }
-        
-        /* تأثير للاختيار */
-        @keyframes selectPulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(0.95); }
-            100% { transform: scale(1); }
+
+        /* تخصيص شريط التمرير */
+        ::-webkit-scrollbar {
+            width: 10px;
         }
-        
-        .type-option.selected {
-            animation: selectPulse 0.3s ease;
+
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(var(--gold), var(--purple));
+            border-radius: 5px;
+        }
+
+        /* تأثير الإجبار */
+        .required-star {
+            color: #FF4444;
+            margin-right: 5px;
         }
     </style>
 </head>
 <body>
+    <!-- طبقات الخلفية المتحركة -->
+    <div class="bg-layers">
+        <!-- Removed old layers, using CSS background and decorations instead -->
+    </div>
+
+    <!-- زينة رمضان -->
+    <div class="ramadan-decorations">
+        <div class="lantern l1"><i class="fas fa-lantern"></i></div>
+        <div class="lantern l2"><i class="fas fa-lamp"></i></div>
+        <div class="lantern l3"><i class="fas fa-lantern"></i></div>
+        <div class="lantern l4"><i class="fas fa-lamp"></i></div>
+        <div class="crescent"><i class="fas fa-moon"></i></div>
+    </div>
+
     <div class="main-container">
         <!-- الهيدر -->
         <div class="main-header">
             <div class="top-voice-badge">
-                <i class="fas fa-crown"></i> TOP VOICE EVENT
+                <i class="fas fa-star-and-crescent"></i> TOP VOICE RAMADAN
             </div>
-            <h1 class="main-title">🎤 إعلان حفلتك </h1>
-            <p class="main-subtitle">أعلن عن حفلتك الآن مع Top Voice</p>
+            <h1 class="main-title">🌙 رمضانيات Top Voice ✨</h1>
+            <p class="main-subtitle">عيش أجواء رمضان مع أقوى الفعاليات والمسابقات</p>
         </div>
 
         <!-- بطاقة تعبئة البيانات -->
@@ -377,72 +558,83 @@
                 <i class="fas fa-edit"></i> تفاصيل الحفلة
             </h2>
 
-            <!-- اختيارات نوع الحفلة المحسنة -->
             <div class="input-section">
                 <div class="input-label">
-                    1. نوع الحفلة <span class="required-star">*</span>
+                    <i class="fas fa-music input-icon"></i>
+                    <span>1. نوع الحفلة <span class="required-star">*</span></span>
                 </div>
-                
-                <div class="party-type-options" id="partyTypeOptions">
-                    <!-- سيتم ملؤها بالجافاسكريبت -->
-                </div>
-                
-                <input type="hidden" id="partyType" value="">
-                <div class="error-message" id="typeError">يجب اختيار نوع الحفلة</div>
+                <select class="input-field" id="partyType" required>
+                    <option value="">-- اختر نوع الحفلة --</option>
+                    <option value="فوازير رمضانية">🌙 فوازير رمضانية</option>
+                    <option value="رمضان الماضي والحاضر">🕰️ رمضان الماضي والحاضر</option>
+                    <option value="خيمة رمضان">⛺ خيمة رمضان</option>
+                    <option value="العاب ومسابقات">🎮 العاب ومسابقات</option>
+                    <option value="فقرة المسحراتي">🥁 فقرة المسحراتي</option>
+                    <option value="تحدي الكرم ف رمضان">🤲 تحدي الكرم ف رمضان</option>
+                    <option value="مسلسلات رمضانية">📺 مسلسلات رمضانية</option>
+                </select>
             </div>
 
             <div class="input-section">
                 <div class="input-label">
-                    2. اسم الحفلة (لو موجود)
+                    <i class="fas fa-heading input-icon"></i>
+                    <span>2. اسم الحفلة (لو موجود)</span>
                 </div>
                 <input type="text" class="input-field" id="partyName" placeholder="مثال: أمسية النجوم مع Top Voice">
             </div>
 
             <div class="input-section">
                 <div class="input-label">
-                    3. اسم صاحب الحفلة / المنظم <span class="required-star">*</span>
+                    <i class="fas fa-user input-icon"></i>
+                    <span>3. اسم صاحب الحفلة / المنظم <span class="required-star">*</span></span>
                 </div>
                 <input type="text" class="input-field" id="organizer" placeholder="أدخل اسمك الكامل" required>
             </div>
 
             <div class="input-section">
                 <div class="input-label">
-                    4. ID ال room (رقم الغرفة) <span class="required-star">*</span>
+                    <i class="fas fa-door-open input-icon"></i>
+                    <span>4. ID ال room (رقم الغرفة) <span class="required-star">*</span></span>
                 </div>
                 <input type="text" class="input-field" id="roomId" placeholder="أدخل رقم الغرفة" required>
             </div>
 
             <div class="input-section">
                 <div class="input-label">
-                    5. موعد الحفلة (التاريخ والوقت) <span class="required-star">*</span>
+                    <i class="fas fa-calendar-alt input-icon"></i>
+                    <span>5. موعد الحفلة (التاريخ والوقت) <span class="required-star">*</span></span>
                 </div>
                 <input type="text" class="input-field" id="partyDate" placeholder="مثال: 25 ديسمبر 2024 - 10:00 مساءً" required>
             </div>
 
             <div class="input-section">
                 <div class="input-label">
-                    6. مدة الحفلة <span class="required-star">*</span>
+                    <i class="fas fa-clock input-icon"></i>
+                    <span>6. مدة الحفلة <span class="required-star">*</span></span>
                 </div>
                 <input type="text" class="input-field" id="partyDuration" placeholder="مثال: 3 ساعات" required>
             </div>
 
             <div class="input-section">
                 <div class="input-label">
-                    7. متوقع عدد الدخلاء <span class="required-star">*</span>
+                    <i class="fas fa-users input-icon"></i>
+                    <span>7. متوقع عدد الدخلاء <span class="required-star">*</span></span>
                 </div>
                 <input type="text" class="input-field" id="expectedAttendance" placeholder="مثال: 100 مستخدم" required>
             </div>
 
             <div class="input-section">
                 <div class="input-label">
-                    8. ضيوف مميزين (لو في)
+                    <i class="fas fa-star input-icon"></i>
+                    <span>8. ضيوف مميزين (لو في)</span>
                 </div>
                 <textarea class="input-field" id="specialGuests" placeholder="أدخل أسماء الضيوف المميزين..."></textarea>
             </div>
 
             <div class="input-section">
                 <div class="input-label">
-                    10. أضف أي تفاصيل أخرى
+                    <i class="fas fa-info-circle input-icon"></i>
+                    <span>10. أضف أي تفاصيل أخرى</span>
                 </div>
                 <textarea class="input-field" id="additionalDetails" placeholder="أي معلومات إضافية تريد إضافتها..."></textarea>
             </div>
@@ -455,27 +647,33 @@
             </h3>
 
             <div class="requirement-item">
-                <strong>عدد المشاهدين:</strong> يتخطى 50 مستخدم
+                <i class="fas fa-users requirement-icon"></i>
+                <span><strong>عدد المشاهدين:</strong> يتخطى 50 مستخدم</span>
             </div>
 
             <div class="requirement-item">
-                <strong>أقل دخل للغرفة:</strong> 50 مليون كونزه
+                <i class="fas fa-coins requirement-icon"></i>
+                <span><strong>أقل دخل للغرفة:</strong> 10 مليون كونزه</span>
             </div>
 
             <div class="requirement-item">
-                <strong>مدة الحدث:</strong> لا تقل عن ساعتين
+                <i class="fas fa-clock requirement-icon"></i>
+                <span><strong>مدة الحدث:</strong> لا تقل عن ساعتين</span>
             </div>
 
             <div class="requirement-item">
-                <strong>إعلان الحفلة:</strong> بانر قبل الحفلة ب 24 ساعة
+                <i class="fas fa-image requirement-icon"></i>
+                <span><strong>إعلان الحفلة:</strong> بانر قبل الحفلة ب 24 ساعة</span>
             </div>
 
             <div class="requirement-item">
-                <strong>تسجيل الحدث:</strong> سكرينات وفيديو قبل وبعد ونصف الحفلة
+                <i class="fas fa-video requirement-icon"></i>
+                <span><strong>تسجيل الحدث:</strong> سكرينات وفيديو قبل وبعد ونصف الحفلة</span>
             </div>
 
             <div class="requirement-item">
-                <strong>دعوة إدارية:</strong> دعوة أداري لحضور الحفل
+                <i class="fas fa-user-shield requirement-icon"></i>
+                <span><strong>دعوة إدارية:</strong> دعوة أداري لحضور الحفل</span>
             </div>
         </div>
 
@@ -486,29 +684,34 @@
             </h3>
 
             <div class="reward-item">
-                <strong>إطار نجم الحفلة:</strong> للضيف المميز
+                <i class="fas fa-certificate reward-icon"></i>
+                <span><strong>إطار نجم الحفلة:</strong> للضيف المميز</span>
             </div>
 
             <div class="reward-item">
-                <strong>دخلات بروفايل كارد:</strong> للمشتركين
+                <i class="fas fa-id-card reward-icon"></i>
+                <span><strong>دخلات بروفايل كارد:</strong> للمشتركين</span>
             </div>
 
             <div class="reward-item">
-                <strong>موجات صوتية مميزة:</strong> للمتميزين
+                <i class="fas fa-wave-square reward-icon"></i>
+                <span><strong>موجات صوتية مميزة:</strong> للمتميزين</span>
             </div>
 
             <div class="reward-item">
-                <strong>تلوين ID بجولد:</strong> للداعمين الكبار
+                <i class="fas fa-palette reward-icon"></i>
+                <span><strong>تلوين ID بجولد:</strong> للداعمين الكبار</span>
             </div>
 
             <div class="reward-item">
-                <strong>نقاط مجانية:</strong> للداعمين اللي تجاوز دعمهم 50M أثناء الحفلة
+                <i class="fas fa-gift reward-icon"></i>
+                <span><strong>نقاط مجانية:</strong> للداعمين اللي تجاوز دعمهم 50M أثناء الحفلة</span>
             </div>
         </div>
 
         <!-- شعارات زخرفية -->
         <div class="decoration">
-            <div class="emoji-line">✨ 🎉 🎊 ✨</div>
+            <div class="emoji-line">✨ ⭐ 🎉 🎊 🏆 ⭐ ✨</div>
         </div>
 
         <!-- زر الإرسال -->
@@ -521,65 +724,13 @@
 
         <!-- شعارات زخرفية -->
         <div class="decoration">
-            <div class="emoji-line">🎤 🎵 🎶 🎤</div>
+            <div class="emoji-line">🎤 🎵 🎶 🎷 🎸 🥁 🎧</div>
         </div>
     </div>
 
     <script>
         // رقم الواتساب الثابت
         const WHATSAPP_NUMBER = "201556864346";
-
-        // أنواع الحفلات المطلوبة
-        const partyTypes = [
-            { value: "غناء", icon: "fas fa-microphone", text: "غناء" },
-            { value: "كوميدي", icon: "fas fa-laugh", text: "كوميدي" },
-            { value: "حوار", icon: "fas fa-comments", text: "حوار" },
-            { value: "مسابقة", icon: "fas fa-trophy", text: "مسابقة" },
-            { value: "ارتباط", icon: "fas fa-heart", text: "ارتباط" },
-            { value: "شعر", icon: "fas fa-pen-alt", text: "شعر" },
-            { value: "عيد ميلاد", icon: "fas fa-birthday-cake", text: "عيد ميلاد" },
-            { value: "افتتاح وكالة", icon: "fas fa-building", text: "افتتاح وكالة" },
-            { value: "ألعاب", icon: "fas fa-gamepad", text: "ألعاب" },
-            { value: "منوعات", icon: "fas fa-star", text: "منوعات" }
-        ];
-
-        // تهيئة اختيارات نوع الحفلة
-        function initializePartyTypeOptions() {
-            const container = document.getElementById('partyTypeOptions');
-            
-            partyTypes.forEach(type => {
-                const option = document.createElement('div');
-                option.className = 'type-option';
-                option.innerHTML = `
-                    <i class="${type.icon}"></i>
-                    <span>${type.text}</span>
-                `;
-                
-                option.addEventListener('click', function() {
-                    // إزالة التحديد من جميع الخيارات
-                    document.querySelectorAll('.type-option').forEach(opt => {
-                        opt.classList.remove('selected');
-                    });
-                    
-                    // إضافة التحديد للخيار الحالي
-                    this.classList.add('selected');
-                    
-                    // تحديث الحقل المخفي
-                    document.getElementById('partyType').value = type.value;
-                    
-                    // إخفاء رسالة الخطأ
-                    document.getElementById('typeError').style.display = 'none';
-                    
-                    // تأثير بسيط
-                    this.style.transform = 'scale(0.95)';
-                    setTimeout(() => {
-                        this.style.transform = '';
-                    }, 150);
-                });
-                
-                container.appendChild(option);
-            });
-        }
 
         // زر الإرسال إلى واتساب
         document.getElementById('sendToWhatsAppBtn').addEventListener('click', function() {
@@ -595,25 +746,7 @@
             const additionalDetails = document.getElementById('additionalDetails').value || 'لا توجد تفاصيل إضافية';
 
             // التحقق من الحقول المطلوبة
-            let hasError = false;
-            
-            if (!partyType || partyType === 'غير محدد') {
-                document.getElementById('typeError').style.display = 'block';
-                hasError = true;
-            }
-            
-            const requiredFields = ['organizer', 'roomId', 'partyDate', 'partyDuration', 'expectedAttendance'];
-            requiredFields.forEach(fieldId => {
-                const field = document.getElementById(fieldId);
-                if (!field.value.trim()) {
-                    field.style.borderColor = 'var(--red)';
-                    hasError = true;
-                } else {
-                    field.style.borderColor = 'rgba(255, 215, 0, 0.3)';
-                }
-            });
-
-            if (hasError) {
+            if (!partyType || !organizer || !roomId || !partyDate || !partyDuration || !expectedAttendance) {
                 alert('⚠️ يرجى ملء جميع الحقول المطلوبة (الحقول التي بها *)');
                 return;
             }
@@ -636,7 +769,7 @@ ${additionalDetails !== 'لا توجد تفاصيل إضافية' ? `📝 *تف�
 
 *✅ شروط الحفلة:*
 • عدد المشاهدين يتخطى 50 مستخدم
-• أقل دخل للغرفة 50 مليون كونزه
+• أقل دخل للغرفة 10 مليون كونزه
 • مدة الحدث لا تقل عن ساعتين
 • إعلان بالبانر قبل 24 ساعة
 • تسجيل كامل للحدث (صور وفيديو)
@@ -664,48 +797,89 @@ ${additionalDetails !== 'لا توجد تفاصيل إضافية' ? `📝 *تف�
             // تأثير زر الضغط
             const btn = this;
             btn.style.transform = 'scale(0.95)';
+            btn.style.background = 'linear-gradient(45deg, #FFD700, #FFA500)';
+            
             setTimeout(() => {
                 btn.style.transform = '';
+                btn.style.background = 'linear-gradient(45deg, var(--gold), #FDB931)';
             }, 200);
+            
+            // إضافة تأثير صوتي (محاكاة)
+            try {
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                if (AudioContext) {
+                    const audioContext = new AudioContext();
+                    const oscillator = audioContext.createOscillator();
+                    const gainNode = audioContext.createGain();
+                    
+                    oscillator.connect(gainNode);
+                    gainNode.connect(audioContext.destination);
+                    
+                    oscillator.frequency.value = 523.25; // C5
+                    oscillator.type = 'sine';
+                    
+                    gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+                    
+                    oscillator.start(audioContext.currentTime);
+                    oscillator.stop(audioContext.currentTime + 0.5);
+                }
+            } catch (e) {
+                console.log('Audio effect not supported on this device');
+            }
         });
 
-        // تحسينات للأداء
-        function initializePerformance() {
-            // تحميل الصفحة بسرعة
-            document.body.style.visibility = 'visible';
+        // إضافة تأثيرات للحقول عند التركيز
+        document.querySelectorAll('.input-field').forEach(field => {
+            field.addEventListener('focus', function() {
+                this.parentElement.parentElement.style.transform = 'translateY(-2px)';
+                this.style.boxShadow = '0 0 25px rgba(255, 215, 0, 0.3)';
+            });
             
-            // منع بعض التأثيرات على الجوال
-            if ('ontouchstart' in window) {
-                document.body.classList.add('touch-device');
-            }
-        }
-
-        // تهيئة الصفحة عند التحميل
-        document.addEventListener('DOMContentLoaded', function() {
-            initializePartyTypeOptions();
-            initializePerformance();
-            
-            // تحسين تفاعل الحقول
-            document.querySelectorAll('.input-field').forEach(field => {
-                field.addEventListener('focus', function() {
-                    this.style.borderColor = 'var(--gold)';
-                });
-                
-                field.addEventListener('blur', function() {
-                    if (this.value.trim()) {
-                        this.style.borderColor = 'rgba(255, 215, 0, 0.5)';
-                    } else {
-                        this.style.borderColor = 'rgba(255, 215, 0, 0.3)';
-                    }
-                });
+            field.addEventListener('blur', function() {
+                this.parentElement.parentElement.style.transform = '';
+                this.style.boxShadow = '';
             });
         });
 
-        // تحسينات للجوال
-        if (window.innerWidth <= 768) {
-            // تحسينات خاصة للجوال
-            document.documentElement.style.setProperty('--tap-highlight', 'rgba(255, 215, 0, 0.1)');
-        }
+        // تأثيرات عند تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            // تأثير ظهور متدرج للعناصر
+            const elements = document.querySelectorAll('.announcement-card, .requirements-section, .rewards-section, .submit-container');
+            elements.forEach((el, index) => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+            
+            // إضافة علامة نجمة للحقول المطلوبةبا
+            document.querySelectorAll('input[required], select[required]').forEach(field => {
+                field.style.borderRight = '4px solid var(--gold)';
+            });
+        });
+
+        // تأثير عند التمرير
+        let lastScroll = 0;
+        window.addEventListener('scroll', function() {
+            const currentScroll = window.pageYOffset;
+            const scrolledDown = currentScroll > lastScroll;
+            
+            const header = document.querySelector('.main-header');
+            if (scrolledDown && currentScroll > 100) {
+                header.style.transform = 'translateY(-20px)';
+                header.style.opacity = '0.8';
+            } else {
+                header.style.transform = 'translateY(0)';
+                header.style.opacity = '1';
+            }
+            
+            lastScroll = currentScroll;
+        });
     </script>
 </body>
 </html>
