@@ -289,6 +289,50 @@
             line-height: 1.6;
         }
 
+        /* خيارات نوع الحفلة - أزرار ظاهرة */
+        .party-type-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* عمودين للموبايل */
+            gap: 12px;
+            margin-top: 5px;
+        }
+
+        .party-option {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border-gold);
+            border-radius: 15px;
+            padding: 15px 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .party-option:hover {
+            background: rgba(255, 215, 0, 0.1);
+            border-color: var(--gold);
+        }
+
+        .party-option.active {
+            background: linear-gradient(45deg, var(--gold), #FDB931);
+            color: #000;
+            font-weight: bold;
+            border-color: white;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+            transform: scale(1.02);
+        }
+
+        .opt-icon {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+
         /* قسم الشروط */
         .requirements-section {
             background: linear-gradient(135deg, rgba(36, 11, 54, 0.6), rgba(15, 23, 42, 0.6));
@@ -563,16 +607,39 @@
                     <i class="fas fa-music input-icon"></i>
                     <span>1. نوع الحفلة <span class="required-star">*</span></span>
                 </div>
-                <select class="input-field" id="partyType" required>
-                    <option value="">-- اختر نوع الحفلة --</option>
-                    <option value="فوازير رمضانية">🌙 فوازير رمضانية</option>
-                    <option value="رمضان الماضي والحاضر">🕰️ رمضان الماضي والحاضر</option>
-                    <option value="خيمة رمضان">⛺ خيمة رمضان</option>
-                    <option value="العاب ومسابقات">🎮 العاب ومسابقات</option>
-                    <option value="فقرة المسحراتي">🥁 فقرة المسحراتي</option>
-                    <option value="تحدي الكرم ف رمضان">🤲 تحدي الكرم ف رمضان</option>
-                    <option value="مسلسلات رمضانية">📺 مسلسلات رمضانية</option>
-                </select>
+                <!-- استبدال القائمة المنسدلة بأزرار ظاهرة -->
+                <div class="party-type-grid" id="partyTypeOptions">
+                    <div class="party-option" data-value="فوازير رمضانية">
+                        <span class="opt-icon">🌙</span>
+                        <span>فوازير رمضانية</span>
+                    </div>
+                    <div class="party-option" data-value="رمضان الماضي والحاضر">
+                        <span class="opt-icon">🕰️</span>
+                        <span>رمضان الماضي والحاضر</span>
+                    </div>
+                    <div class="party-option" data-value="خيمة رمضان">
+                        <span class="opt-icon">⛺</span>
+                        <span>خيمة رمضان</span>
+                    </div>
+                    <div class="party-option" data-value="العاب ومسابقات">
+                        <span class="opt-icon">🎮</span>
+                        <span>العاب ومسابقات</span>
+                    </div>
+                    <div class="party-option" data-value="فقرة المسحراتي">
+                        <span class="opt-icon">🥁</span>
+                        <span>فقرة المسحراتي</span>
+                    </div>
+                    <div class="party-option" data-value="تحدي الكرم ف رمضان">
+                        <span class="opt-icon">🤲</span>
+                        <span>تحدي الكرم ف رمضان</span>
+                    </div>
+                    <div class="party-option" data-value="مسلسلات رمضانية">
+                        <span class="opt-icon">📺</span>
+                        <span>مسلسلات رمضانية</span>
+                    </div>
+                </div>
+                <!-- حقل مخفي لحفظ القيمة المختارة -->
+                <input type="hidden" id="partyType" required>
             </div>
 
             <div class="input-section">
@@ -860,6 +927,24 @@ ${additionalDetails !== 'لا توجد تفاصيل إضافية' ? `📝 *تف�
             // إضافة علامة نجمة للحقول المطلوبةبا
             document.querySelectorAll('input[required], select[required]').forEach(field => {
                 field.style.borderRight = '4px solid var(--gold)';
+            });
+
+            // تفعيل خيارات نوع الحفلة (الأزرار الجديدة)
+            const partyOptions = document.querySelectorAll('.party-option');
+            const partyTypeInput = document.getElementById('partyType');
+
+            partyOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    // إزالة التفعيل من الجميع
+                    partyOptions.forEach(opt => opt.classList.remove('active'));
+                    // تفعيل العنصر المختار
+                    this.classList.add('active');
+                    // تحديث القيمة في الحقل المخفي
+                    partyTypeInput.value = this.getAttribute('data-value');
+                    
+                    // تأثير اهتزاز بسيط للموبايل
+                    if(navigator.vibrate) navigator.vibrate(30);
+                });
             });
         });
 
